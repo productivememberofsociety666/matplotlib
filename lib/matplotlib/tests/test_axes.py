@@ -1115,6 +1115,15 @@ def test_hist_log():
     ax.hist(data, fill=False, log=True)
 
 
+@image_comparison(baseline_images=['hist_cumulative'], remove_text=True,
+                  extensions=['png'])
+def test_hist_cumulative():
+    np.random.seed(0)
+    x = np.random.randn(1000)
+    plt.hist(x, 10, alpha=0.5, cumulative=False)
+    plt.hist(x, 10, alpha=0.5, cumulative=True)
+
+
 @image_comparison(baseline_images=['hist_bar_empty'], remove_text=True,
 	extensions=['png'])
 def test_hist_bar_empty():
