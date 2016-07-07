@@ -6185,17 +6185,13 @@ class Axes(_AxesBase):
                               bottom, histtype, align, orientation, rwidth, log,
                               color, label, stacked, **kwargs)
 
-    @unpack_labeled_data(replace_names=["x", 'weights'], label_namer="x")
+    @unpack_labeled_data(replace_names=["n", 'weights'], label_namer="n")
     @docstring.dedent_interpd
-    def plot_hist(self, x, bins=None, range=None, normed=False, weights=None,
+    def plot_hist(self, n, bins=None, range=None, normed=False, weights=None,
                   cumulative=False, bottom=None, histtype='bar', align='mid',
                   orientation='vertical', rwidth=None, log=False,
                   color=None, label=None, stacked=False,
                   **kwargs):
-        # My idea TODO
-        # x parameter has changed meaning
-        n = x
-
         # COPIED TODO
         # xrange becomes range after 2to3
         bin_range = range
