@@ -6181,10 +6181,9 @@ class Axes(_AxesBase):
             else:
                 n = [m[slc].cumsum()[slc] for m in n]
 
-        self.plot_hist(n, bins, range, normed, weights, cumulative, bottom,
-                       histtype, align, orientation, rwidth, log, color, label,
-                       stacked, **kwargs)
-
+        return self.plot_hist(n, bins, range, normed, weights, cumulative,
+                              bottom, histtype, align, orientation, rwidth, log,
+                              color, label, stacked, **kwargs)
 
     @unpack_labeled_data(replace_names=["x", 'weights'], label_namer="x")
     @docstring.dedent_interpd
@@ -6418,7 +6417,6 @@ class Axes(_AxesBase):
             return n[0], bins, cbook.silent_list('Patch', patches[0])
         else:
             return n, bins, cbook.silent_list('Lists of Patches', patches)
-
 
     @unpack_labeled_data(replace_names=["x", "y", "weights"], label_namer=None)
     @docstring.dedent_interpd
