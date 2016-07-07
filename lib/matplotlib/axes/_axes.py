@@ -6181,6 +6181,34 @@ class Axes(_AxesBase):
             else:
                 n = [m[slc].cumsum()[slc] for m in n]
 
+        self.plot_hist(n, bins, range, normed, weights, cumulative, bottom,
+                       histtype, align, orientation, rwidth, log, color, label,
+                       stacked, **kwargs)
+
+
+    @unpack_labeled_data(replace_names=["x", 'weights'], label_namer="x")
+    @docstring.dedent_interpd
+    def plot_hist(self, x, bins=None, range=None, normed=False, weights=None,
+                  cumulative=False, bottom=None, histtype='bar', align='mid',
+                  orientation='vertical', rwidth=None, log=False,
+                  color=None, label=None, stacked=False,
+                  **kwargs):
+        # My idea TODO
+        # x parameter has changed meaning
+        n = x
+
+        # COPIED TODO
+        # xrange becomes range after 2to3
+        bin_range = range
+        range = __builtins__["range"]
+
+        # COPIED TODO
+        # Check whether bins or range are given explicitly.
+        binsgiven = (cbook.iterable(bins) or bin_range is not None)
+
+        # COPIED TODO
+        nx = len(n)  # number of datasets (redefine)
+
         if orientation == 'horizontal':
             margins = {'left': False}
         else:
@@ -6390,6 +6418,7 @@ class Axes(_AxesBase):
             return n[0], bins, cbook.silent_list('Patch', patches[0])
         else:
             return n, bins, cbook.silent_list('Lists of Patches', patches)
+
 
     @unpack_labeled_data(replace_names=["x", "y", "weights"], label_namer=None)
     @docstring.dedent_interpd
