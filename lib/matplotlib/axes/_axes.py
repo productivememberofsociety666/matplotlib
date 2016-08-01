@@ -6195,7 +6195,6 @@ class Axes(_AxesBase):
 
         return rv
 
-
     @unpack_labeled_data(replace_names=["n", 'weights'], label_namer="n")
     @docstring.dedent_interpd
     def plot_hist(self, n, bins=None, range=None, normed=False, weights=None,
