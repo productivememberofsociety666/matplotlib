@@ -6181,7 +6181,7 @@ class Axes(_AxesBase):
         # Actual plot
         rv = self.plot_hist(n, bins, bin_range, normed, weights, cumulative,
                             bottom, histtype, align, orientation, rwidth, log,
-                            color, label, stacked, input_empty, **kwargs)
+                            color, label, stacked, **kwargs)
 
         # Update datalims if bins were given as sequence
         if binsgiven:
@@ -6198,9 +6198,8 @@ class Axes(_AxesBase):
     @docstring.dedent_interpd
     def plot_hist(self, n, bins=None, range=None, normed=False, weights=None,
                   cumulative=False, bottom=None, histtype='bar', align='mid',
-                  orientation='vertical', rwidth=None, log=False,
-                  color=None, label=None, stacked=False, _input_empty=None,
-                  **kwargs):
+                  orientation='vertical', rwidth=None, log=False, color=None,
+                  label=None, stacked=False, **kwargs):
         # COPIED TODO
         # xrange becomes range after 2to3
         bin_range = range
@@ -6208,12 +6207,6 @@ class Axes(_AxesBase):
 
         # COPIED TODO
         nx = len(n)  # number of datasets (redefine)
-
-        # INVENTED TODO
-        if _input_empty is None:
-            input_empty = nx == 0
-        else:
-            input_empty = _input_empty
 
         # MOVED TODO
         # This references the autoscale code below (!):
@@ -6378,22 +6371,27 @@ class Axes(_AxesBase):
             if orientation == 'horizontal':
                 xmin0 = max(_saved_bounds[0]*0.9, minimum)
                 xmax = self.dataLim.intervalx[1]
+                # xmin will stay None if all bin counts are empty,
+                # cf. input_empty variable in hist()
+                xmin = None
                 for m in n:
                     if np.sum(m) > 0:  # make sure there are counts
                         xmin = np.amin(m[m != 0])
                         # filter out the 0 height bins
-                xmin = max(xmin*0.9, minimum) if not input_empty else minimum
+                xmin = max(xmin*0.9, minimum) if xmin is not None else minimum
                 xmin = min(xmin0, xmin)
                 self.dataLim.intervalx = (xmin, xmax)
             elif orientation == 'vertical':
                 ymin0 = max(_saved_bounds[1]*0.9, minimum)
                 ymax = self.dataLim.intervaly[1]
-
+                # ymin will stay None if all bin counts are empty,
+                # cf. input_empty variable in hist()
+                ymin = None
                 for m in n:
                     if np.sum(m) > 0:  # make sure there are counts
                         ymin = np.amin(m[m != 0])
                         # filter out the 0 height bins
-                ymin = max(ymin*0.9, minimum) if not input_empty else minimum
+                ymin = max(ymin*0.9, minimum) if ymin is not None else minimum
                 ymin = min(ymin0, ymin)
                 self.dataLim.intervaly = (ymin, ymax)
 
