@@ -6181,9 +6181,21 @@ class Axes(_AxesBase):
             else:
                 n = [m[slc].cumsum()[slc] for m in n]
 
-        return self.plot_hist(n, bins, range, normed, weights, cumulative,
-                              bottom, histtype, align, orientation, rwidth, log,
-                              color, label, stacked, **kwargs)
+        rv = self.plot_hist(n, bins, range, normed, weights, cumulative, bottom,
+                            histtype, align, orientation, rwidth, log, color,
+                            label, stacked, **kwargs)
+
+        # Update datalims if bins were given as sequence
+        if binsgiven:
+            if orientation == 'vertical':
+                self.update_datalim(
+                    [(bins[0], 0), (bins[-1], 0)], updatey=False)
+            else:
+                self.update_datalim(
+                    [(0, bins[0]), (0, bins[-1])], updatex=False)
+
+        return rv
+
 
     @unpack_labeled_data(replace_names=["n", 'weights'], label_namer="n")
     @docstring.dedent_interpd
@@ -6196,10 +6208,6 @@ class Axes(_AxesBase):
         # xrange becomes range after 2to3
         bin_range = range
         range = __builtins__["range"]
-
-        # COPIED TODO
-        # Check whether bins or range are given explicitly.
-        binsgiven = (cbook.iterable(bins) or bin_range is not None)
 
         # COPIED TODO
         nx = len(n)  # number of datasets (redefine)
@@ -6400,14 +6408,6 @@ class Axes(_AxesBase):
                 for p in patch[1:]:
                     p.update(kwargs)
                     p.set_label('_nolegend_')
-
-        if binsgiven:
-            if orientation == 'vertical':
-                self.update_datalim(
-                    [(bins[0], 0), (bins[-1], 0)], updatey=False)
-            else:
-                self.update_datalim(
-                    [(0, bins[0]), (0, bins[-1])], updatex=False)
 
         if nx == 1:
             return n[0], bins, cbook.silent_list('Patch', patches[0])
