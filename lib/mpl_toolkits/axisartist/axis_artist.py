@@ -1579,6 +1579,10 @@ class AxisArtist(martist.Artist):
     #def get_ticklabel_extents(self, renderer):
     #    pass
 
+    def set_visible(self, b):
+        self.toggle(all=b)
+        Artist.set_visible(self, b)
+
     def toggle(self, all=None, ticks=None, ticklabels=None, label=None):
         """
         Toggle visibility of ticks, ticklabels, and (axis) label.
