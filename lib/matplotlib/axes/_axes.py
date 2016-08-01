@@ -6181,8 +6181,7 @@ class Axes(_AxesBase):
         # Actual plot
         rv = self.plot_hist(n, bins, bin_range, normed, weights, cumulative,
                             bottom, histtype, align, orientation, rwidth, log,
-                            color, label, stacked, binsgiven, input_empty,
-                            **kwargs)
+                            color, label, stacked, input_empty, **kwargs)
 
         # Update datalims if bins were given as sequence
         if binsgiven:
@@ -6200,18 +6199,12 @@ class Axes(_AxesBase):
     def plot_hist(self, n, bins=None, range=None, normed=False, weights=None,
                   cumulative=False, bottom=None, histtype='bar', align='mid',
                   orientation='vertical', rwidth=None, log=False,
-                  color=None, label=None, stacked=False, _binsgiven=None,
-                  _input_empty=None, **kwargs):
+                  color=None, label=None, stacked=False, _input_empty=None,
+                  **kwargs):
         # COPIED TODO
         # xrange becomes range after 2to3
         bin_range = range
         range = __builtins__["range"]
-
-        # INVENTED TODO
-        if _binsgiven is None:
-            binsgiven = (cbook.iterable(bins) or bin_range is not None)
-        else:
-            binsgiven = _binsgiven
 
         # COPIED TODO
         nx = len(n)  # number of datasets (redefine)
@@ -6221,10 +6214,6 @@ class Axes(_AxesBase):
             input_empty = nx == 0
         else:
             input_empty = _input_empty
-
-        # INVENTED TODO
-        if not binsgiven and not input_empty:
-            xmin, xmax = bin_range
 
         # MOVED TODO
         # This references the autoscale code below (!):
