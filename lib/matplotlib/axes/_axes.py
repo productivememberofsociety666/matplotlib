@@ -6181,6 +6181,7 @@ class Axes(_AxesBase):
             else:
                 n = [m[slc].cumsum()[slc] for m in n]
 
+        # Actual plot
         rv = self.plot_hist(n, bins, range, normed, weights, cumulative, bottom,
                             histtype, align, orientation, rwidth, log, color,
                             label, stacked, **kwargs)
