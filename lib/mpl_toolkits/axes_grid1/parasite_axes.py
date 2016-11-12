@@ -328,6 +328,8 @@ class HostAxesBase(object):
         ax2.axis["right"].set_visible(True)
         ax2.axis["left", "top", "bottom"].set_visible(False)
 
+        ax2.axis["right"].toggle(all=True)
+
         def _remove_method(h):
             self.parasites.remove(h)
             self.axis["right"].set_visible(True)
@@ -356,6 +358,8 @@ class HostAxesBase(object):
 
         ax2.axis["top"].set_visible(True)
         ax2.axis["left", "right", "bottom"].set_visible(False)
+
+        ax2.axis["top"].toggle(all=True)
 
         def _remove_method(h):
             self.parasites.remove(h)
@@ -394,6 +398,8 @@ class HostAxesBase(object):
 
         ax2.axis["top", "right"].set_visible(True)
         ax2.axis["left", "bottom"].set_visible(False)
+
+        ax2.axis["top", "right"].toggle(all=True)
 
         def _remove_method(h):
             self.parasites.remove(h)
