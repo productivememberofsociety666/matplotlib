@@ -48,6 +48,7 @@ addons:
       - texlive-xetex
       - texlive-luatex
       - ttf-wqy-zenhei
+      - qtbase5-dev
 
 env:
   global:
