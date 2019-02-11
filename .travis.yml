@@ -50,6 +50,8 @@ addons:
       - ttf-wqy-zenhei
       - libxcb1
       - libxcb1-dev
+      - libqt5core5a
+      - qtbase5-dev
 
 env:
   global:
