@@ -48,6 +48,8 @@ addons:
       - texlive-xetex
       - texlive-luatex
       - ttf-wqy-zenhei
+      - libxcb1
+      - libxcb1-dev
 
 env:
   global:
